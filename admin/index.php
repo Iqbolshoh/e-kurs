@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include './config.php';
+include '../config.php';
 $query = new Database();
-$query->checkUserSession('user');
+$query->checkUserSession('admin');
 
-$user = $query->select("users", '*', "id = ?", [$_SESSION['user_id']], 'i')[0];
+$user = $query->select("users", '*', "id = ?", [$_SESSION['user_id']], 'i');
 
 $_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
 
@@ -32,7 +32,7 @@ if (
 
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
         $encrypted_name = md5(bin2hex(random_bytes(32)) . '_' . bin2hex(random_bytes(16)) . '_' . uniqid('', true)) . '.' . pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
-        $targetFile = "./src/images/profile_picture/";
+        $targetFile = "../src/images/profile_picture/";
 
         $filePath = $targetFile . '/' . $user['profile_picture'];
         if (file_exists($filePath) && $user['profile_picture'] != 'default.png') {
@@ -70,7 +70,7 @@ if (
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="stylesheet" href="./src/css/adminlte.min.css">
+    <link rel="stylesheet" href="../src/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -181,9 +181,9 @@ if (
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="./src/js/jquery.min.js"></script>
-    <script src="./src/js/bootstrap.bundle.min.js"></script>
-    <script src="./src/js/adminlte.min.js"></script>
+    <script src="../src/js/jquery.min.js"></script>
+    <script src="../src/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/js/adminlte.min.js"></script>
 
 </body>
 
