@@ -55,6 +55,35 @@ if (
     <link rel="stylesheet" href="../src/css/adminlte.min.css">
 </head>
 
+<style>
+    #email-message,
+    #username-message,
+    #password-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .form-group .password-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-group .password-container input {
+        flex: 1;
+        padding-right: 40px;
+    }
+
+    .form-group .password-toggle {
+        position: absolute;
+        right: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+    }
+</style>
+
 <body>
     <div class="wrapper">
         <?php include './header.php'; ?>
@@ -94,8 +123,7 @@ if (
                             <div class="card">
                                 <div class="card-header bg-dark text-white">Add New Center</div>
                                 <div class="card-body">
-                                    <form method="POST">
-                                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                                    <form id="signupForm" method="POST">
                                         <div class="mb-3">
                                             <label>First Name</label>
                                             <input type="text" name="first_name" class="form-control" required>
@@ -106,26 +134,36 @@ if (
                                         </div>
                                         <div class="mb-3">
                                             <label for="email">Email</label>
-                                            <input type="email" id="email" name="email" required maxlength="100">
+                                            <input type="email" id="email" name="email" required class="form-control"
+                                                maxlength="100">
                                             <small id="email-message"></small>
                                         </div>
                                         <div class="mb-3">
                                             <label for="username">Username</label>
-                                            <input type="text" id="username" name="username" required maxlength="30">
+                                            <input type="text" id="username" name="username" required
+                                                class="form-control" maxlength="30">
                                             <small id="username-message"></small>
                                         </div>
                                         <div class="mb-3">
                                             <label for="password">Password</label>
                                             <div class="password-container">
                                                 <input type="password" id="password" name="password" required
-                                                    maxlength="255">
+                                                    class="form-control" maxlength="255">
                                                 <button type="button" id="toggle-password" class="password-toggle">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
                                             <small id="password-message"></small>
                                         </div>
-                                        <button type="submit" name="submit" class="btn btn-primary">Add Center</button>
+
+                                        <div class="mb-3">
+                                            <input type="hidden" name="csrf_token"
+                                                value="<?= $_SESSION['csrf_token']; ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <button type="submit" name="submit" class="btn btn-primary w-100">Add
+                                                Center</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
