@@ -1,3 +1,5 @@
+DROP DATABASE e_kurs;
+
 CREATE DATABASE IF NOT EXISTS e_kurs;
 
 USE e_kurs;
@@ -43,6 +45,14 @@ VALUES
         'iqbolshoh',
         '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
         'admin'
+    ),
+    (
+        'English',
+        'Center',
+        'center@gmail.com',
+        'center',
+        '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
+        'center'
     ),
     (
         'User',
