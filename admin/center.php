@@ -64,19 +64,22 @@ if (
         margin-top: 5px;
     }
 
-    .form-group .password-container {
+    .password-container {
+        position: relative;
         display: flex;
         align-items: center;
     }
 
-    .form-group .password-container input {
+    .password-container input {
         flex: 1;
         padding-right: 40px;
     }
 
-    .form-group .password-toggle {
+    .password-toggle {
         position: absolute;
         right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 18px;
         cursor: pointer;
         border: none;
@@ -125,37 +128,38 @@ if (
                                 <div class="card-body">
                                     <form id="signupForm" method="POST">
                                         <div class="mb-3">
-                                            <label>First Name</label>
-                                            <input type="text" name="first_name" class="form-control" required>
+                                            <label for="first_name" class="form-label">First Name</label>
+                                            <input type="text" id="first_name" name="first_name" class="form-control"
+                                                maxlength="30" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label>Last Name</label>
-                                            <input type="text" name="last_name" class="form-control" required>
+                                            <label for="last_name" class="form-label">Last Name</label>
+                                            <input type="text" id="last_name" name="last_name" class="form-control"
+                                                maxlength="30" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="email">Email</label>
-                                            <input type="email" id="email" name="email" required class="form-control"
-                                                maxlength="100">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control"
+                                                maxlength="100" required>
                                             <small id="email-message"></small>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="username">Username</label>
-                                            <input type="text" id="username" name="username" required
-                                                class="form-control" maxlength="30">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input type="text" id="username" name="username" class="form-control"
+                                                maxlength="30" required>
                                             <small id="username-message"></small>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password">Password</label>
+                                            <label for="password" class="form-label">Password</label>
                                             <div class="password-container">
-                                                <input type="password" id="password" name="password" required
-                                                    class="form-control" maxlength="255">
+                                                <input type="password" id="password" name="password"
+                                                    class="form-control" maxlength="255" required>
                                                 <button type="button" id="toggle-password" class="password-toggle">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </div>
                                             <small id="password-message"></small>
                                         </div>
-
                                         <div class="mb-3">
                                             <input type="hidden" name="csrf_token"
                                                 value="<?= $_SESSION['csrf_token']; ?>">
