@@ -50,7 +50,7 @@ VALUES
         'English',
         'Center',
         'center@iqbolshoh.uz',
-        'iqbolshoh',
+        'center',
         '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
         'admin'
     ),
