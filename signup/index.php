@@ -234,7 +234,7 @@ if (
 
             function validatePassword() {
                 if (passwordField.value.length < 8) {
-                    passwordMessage.textContent = 'Password must be at least 8 characters long!';
+                    passwordMessage.textContent = 'Min 8 characters required.';
                     return false;
                 }
                 passwordMessage.textContent = '';
@@ -288,7 +288,7 @@ if (
 
             usernameField.addEventListener('input', function () {
                 if (!validateUsernameFormat(this.value)) {
-                    usernameMessage.textContent = 'Username must be 3-30 characters long and contain only letters, numbers, and underscores!';
+                    usernameMessage.textContent = 'Username must be 3-30 characters: A-Z, a-z, 0-9, or _.';
                     usernameAvailable = false;
                     updateSubmitButtonState();
                     return;
