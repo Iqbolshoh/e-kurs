@@ -94,16 +94,20 @@ if (
                             <th>Name</th>
                             <th>Email</th>
                             <th>Username</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($centers as $center): ?>
                             <tr>
                                 <td><?= $center['id'] ?></td>
-                                <td><?= htmlspecialchars($center['first_name'] . ' ' . $center['last_name']) ?>
-                                </td>
+                                <td><?= htmlspecialchars($center['first_name'] . ' ' . $center['last_name']) ?></td>
                                 <td><?= htmlspecialchars($center['email']) ?></td>
                                 <td><?= htmlspecialchars($center['username']) ?></td>
+                                <td>
+                                    <a href="center_details.php?id=<?= $center['id'] ?>"
+                                        class="btn btn-warning btn-sm">Details</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
