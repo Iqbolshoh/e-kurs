@@ -9,6 +9,7 @@ date_default_timezone_set('Etc/GMT-5');
 
 const ROLES = [
     'admin' => '/admin/',
+    'center' => '/center/',
     'user' => '/'
 ];
 
