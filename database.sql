@@ -1,8 +1,6 @@
-DROP DATABASE e_kurs;
+CREATE DATABASE IF NOT EXISTS auth_master;
 
-CREATE DATABASE IF NOT EXISTS e_kurs;
-
-USE e_kurs;
+USE auth_master;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -11,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     username VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'center', 'user') NOT NULL DEFAULT 'user',
+    role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
     profile_picture VARCHAR(255) DEFAULT 'default.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -27,6 +25,7 @@ CREATE TABLE IF NOT EXISTS active_sessions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- admin and user (password: 'Iqbolsoh$7')
 INSERT INTO
     users (
         first_name,
@@ -44,14 +43,6 @@ VALUES
         'iqbolshoh',
         '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
         'admin'
-    ),
-    (
-        'English',
-        'Center',
-        'center@gmail.com',
-        'center',
-        '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
-        'center'
     ),
     (
         'User',
