@@ -34,7 +34,7 @@ if (
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'New center added successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('center.php'); }); };
+            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'New center added successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('centers.php'); }); };
         </script>
         <?php
     }
@@ -128,20 +128,19 @@ if (
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email_input" name="email" class="form-control" maxlength="100" required>
+                        <input type="email" id="email" name="email" class="form-control" maxlength="100" required>
                         <small id="email-message"></small>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" id="username_input" name="username" class="form-control" maxlength="30"
-                            required>
+                        <input type="text" id="username" name="username" class="form-control" maxlength="30" required>
                         <small id="username-message"></small>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="password-container">
-                            <input type="password" id="password_input" name="password" class="form-control"
-                                maxlength="255" required>
+                            <input type="password" id="password" name="password" class="form-control" maxlength="255"
+                                required>
                             <button type="button" id="toggle-password" class="password-toggle">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -152,7 +151,7 @@ if (
                         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                     </div>
                     <div class="mb-3">
-                        <button type="submit" name="submit" id="submit_btn" class="btn btn-primary w-100">Add
+                        <button type="submit" name="submit" id="submit" class="btn btn-primary w-100">Add
                             Center</button>
                     </div>
                 </form>
