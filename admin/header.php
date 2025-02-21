@@ -8,7 +8,14 @@ $menuItems = [
         "pages" => [
             ["title" => "Update Profile", "url" => "index.php"],
             ["title" => "Active Sessions", "url" => "active_sessions.php"]
-        ],
+        ]
+    ],
+    [
+        "menuTitle" => "Users",
+        "icon" => "fas fa-users",
+        "pages" => [
+            ["title" => "Centers", "url" => "centers.php"]
+        ]
     ]
 ];
 

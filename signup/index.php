@@ -263,7 +263,15 @@ if (
             }
 
             function updateSubmitButtonState() {
-                submitButton.disabled = !(emailAvailable && usernameAvailable && validatePassword());
+                const isEmailValid = validateEmailFormat(emailField.value) && emailAvailable;
+                const isUsernameValid = validateUsernameFormat(usernameField.value) && usernameAvailable;
+                const isPasswordValid = passwordField.value.length == 0 ? true : validatePassword();
+
+                const isFormValid = isEmailValid && isUsernameValid && isPasswordValid;
+
+                submitButton.disabled = !isFormValid;
+                submitButton.style.backgroundColor = isFormValid ? '#007bff' : '#b8daff';
+                submitButton.style.cursor = isFormValid ? 'pointer' : 'not-allowed';
             }
 
             emailField.addEventListener('input', function () {
