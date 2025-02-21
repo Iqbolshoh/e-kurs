@@ -15,7 +15,8 @@ if (isset($_GET['id'])) {
 if (isset($_POST['delete_id'])) {
     $delete_id = $_POST['delete_id'];
     $query->delete("users", "id = ?", [$delete_id], 'i');
-    echo "<script>window.location.href='centers.php';</script>";
+    header("Location: ./centers.php");
+    exit;
 }
 ?>
 
@@ -86,7 +87,6 @@ if (isset($_POST['delete_id'])) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function confirmDelete() {
         Swal.fire({
