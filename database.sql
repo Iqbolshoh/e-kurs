@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS active_sessions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 -- admin and user (password: 'Iqbolsoh$7')
 INSERT INTO
     users (
