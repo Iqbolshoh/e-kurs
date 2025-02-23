@@ -54,11 +54,11 @@ CREATE TABLE IF NOT EXISTS payments (
     user_id INT NOT NULL,
     course_id INT NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    click_trans_id VARCHAR(100) NOT NULL,
-    merchant_trans_id VARCHAR(100) NOT NULL,
+    api_trans_id VARCHAR(100) NOT NULL,
+    system_trans_id VARCHAR(100) NOT NULL,
+    method ENUM('click', 'payme') DEFAULT 'click',
     status ENUM('unpay', 'paid') DEFAULT 'unpay',
-    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
@@ -84,10 +84,15 @@ CREATE TABLE IF NOT EXISTS lessons (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
-
-
-
-
+CREATE TABLE IF NOT EXISTS certificates (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    certificate_url VARCHAR(255),
+    issued_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
 
 -- admin and user (password: 'Iqbolsoh$7')
 INSERT INTO
