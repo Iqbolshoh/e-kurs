@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     username VARCHAR(30) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'center', 'user') NOT NULL DEFAULT 'user',
+    role ENUM('admin', 'center', 'student') NOT NULL DEFAULT 'student',
     profile_picture VARCHAR(255) DEFAULT 'default.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS courses (
     FOREIGN KEY (center_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS enrollments (
+CREATE TABLE IF NOT EXISTS students (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     course_id INT NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS payments (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS reviews (
+CREATE TABLE IF NOT EXISTS comments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     course_id INT NOT NULL,
@@ -122,10 +122,10 @@ VALUES
         'center'
     ),
     (
-        'User',
-        'Userjonov',
-        'user@iqbolshoh.uz',
-        'user',
+        'student',
+        'studentjonov',
+        'student@iqbolshoh.uz',
+        'student',
         '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
-        'user'
+        'student'
     );
