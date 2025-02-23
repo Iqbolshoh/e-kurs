@@ -14,7 +14,8 @@ $menuItems = [
         "menuTitle" => "Users",
         "icon" => "fas fa-users",
         "pages" => [
-            ["title" => "Centers", "url" => "centers.php"]
+            ["title" => "Centers", "url" => "centers.php"],
+            ["title" => "Students", "url" => "students.php"]
         ]
     ]
 ];
