@@ -27,6 +27,18 @@ CREATE TABLE IF NOT EXISTS active_sessions (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS courses (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    center_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(100),
+    image VARCHAR(255) DEFAULT 'default_course.png',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (center_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
 
 
