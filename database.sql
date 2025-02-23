@@ -40,7 +40,6 @@ CREATE TABLE IF NOT EXISTS courses (
     FOREIGN KEY (center_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS enrollments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -67,10 +66,25 @@ CREATE TABLE IF NOT EXISTS reviews (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     course_id INT NOT NULL,
-    rating INT CHECK (rating BETWEEN 1 AND 5),
+    rating INT CHECK (
+        rating BETWEEN 1
+        AND 5
+    ),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS lessons (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    course_id INT,
+    type ENUM('video', 'content') NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    description TEXT,
+    link VARCHAR(255),
+    position INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
