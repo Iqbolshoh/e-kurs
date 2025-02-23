@@ -9,6 +9,29 @@ $menuItems = [
             ["title" => "Update Profile", "url" => "index.php"],
             ["title" => "Active Sessions", "url" => "active_sessions.php"]
         ],
+    ],
+    [
+        "menuTitle" => "Courses",
+        "icon" => "fas fa-book",
+        "pages" => [
+            ["title" => "My Courses", "url" => "my_courses.php"],
+            ["title" => "Add New Course", "url" => "add_course.php"],
+            ["title" => "Manage Lessons", "url" => "manage_lessons.php"]
+        ],
+    ],
+    [
+        "menuTitle" => "Students",
+        "icon" => "fas fa-users",
+        "pages" => [
+            ["title" => "Manage Students", "url" => "manage_students.php"]
+        ],
+    ],
+    [
+        "menuTitle" => "Payments",
+        "icon" => "fas fa-credit-card",
+        "pages" => [
+            ["title" => "Payment History", "url" => "payment_history.php"]
+        ],
     ]
 ];
 
