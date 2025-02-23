@@ -94,6 +94,21 @@ CREATE TABLE IF NOT EXISTS certificates (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS test (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    lesson_id INT,
+    question TEXT NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES lessons(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS test_options (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    test_id INT NOT NULL,
+    option_text VARCHAR(255) NOT NULL,
+    is_correct BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (test_id) REFERENCES test(id) ON DELETE CASCADE
+);
+
 -- admin and user (password: 'Iqbolsoh$7')
 INSERT INTO
     users (
