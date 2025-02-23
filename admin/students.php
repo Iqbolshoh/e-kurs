@@ -5,7 +5,7 @@ include '../config.php';
 $query = new Database();
 $query->checkUserSession('admin');
 
-$users = $query->select("users", '*', "role = ?", ['student'], 's');
+$students = $query->select("users", '*', "role = ?", ['student'], 's');
 $_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
 
 if (
@@ -34,7 +34,7 @@ if (
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'New student added successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('users.php'); }); };
+            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'New student added successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('students.php'); }); };
         </script>
         <?php
     }
@@ -98,7 +98,7 @@ if (
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $student): ?>
+                        <?php foreach ($students as $student): ?>
                             <tr>
                                 <td><?= $student['id'] ?></td>
                                 <td><?= htmlspecialchars($student['first_name'] . ' ' . $student['last_name']) ?></td>
