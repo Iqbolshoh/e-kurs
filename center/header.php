@@ -15,6 +15,7 @@ $menuItems = [
         "icon" => "fas fa-book",
         "pages" => [
             ["title" => "My Courses", "url" => "my_courses.php"],
+            ["title" => "Create Course", "url" => "create_course.php"],
             ["title" => "Manage Lessons", "url" => "manage_lessons.php"]
         ],
     ],
@@ -22,13 +23,8 @@ $menuItems = [
         "menuTitle" => "Tests",
         "icon" => "fas fa-question-circle",
         "pages" => [
+            ["title" => "Create Test", "url" => "create_test.php"],
             ["title" => "Manage Tests", "url" => "tests.php"],
-        ],
-    ],
-    [
-        "menuTitle" => "Results",
-        "icon" => "fas fa-chart-bar",
-        "pages" => [
             ["title" => "View Results", "url" => "results.php"]
         ],
     ],
@@ -36,14 +32,15 @@ $menuItems = [
         "menuTitle" => "Students",
         "icon" => "fas fa-users",
         "pages" => [
-            ["title" => "Manage Students", "url" => "students.php"]
+            ["title" => "Students", "url" => "students.php"],
         ],
     ],
     [
         "menuTitle" => "Payments",
         "icon" => "fas fa-credit-card",
         "pages" => [
-            ["title" => "Payment History", "url" => "payment_history.php"]
+            ["title" => "Payment History", "url" => "payment_history.php"],
+            ["title" => "Pending Payments", "url" => "pending_payments.php"]
         ],
     ]
 ];

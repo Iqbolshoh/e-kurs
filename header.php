@@ -17,6 +17,14 @@ $menuItems = [
             ["title" => "All Courses", "url" => "courses.php"],
             ["title" => "My Courses", "url" => "my_courses.php"]
         ],
+    ],
+    [
+        "menuTitle" => "Tests",
+        "icon" => "fas fa-question-circle",
+        "pages" => [
+            ["title" => "Manage Tests", "url" => "manage_tests.php"],
+            ["title" => "Results", "url" => "results.php"]
+        ]
     ]
 ];
 

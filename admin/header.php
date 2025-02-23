@@ -26,11 +26,27 @@ $menuItems = [
         ]
     ],
     [
+        "menuTitle" => "Tests",
+        "icon" => "fas fa-question-circle",
+        "pages" => [
+            ["title" => "Manage Tests", "url" => "manage_tests.php"],
+            ["title" => "Results", "url" => "results.php"]
+        ]
+    ],
+    [
         "menuTitle" => "Payments",
         "icon" => "fas fa-credit-card",
         "pages" => [
-            ["title" => "Payment History", "url" => "payment_history.php"]
-        ],
+            ["title" => "Payment History", "url" => "payment_history.php"],
+            ["title" => "Pending Payments", "url" => "pending_payments.php"]
+        ]
+    ],
+    [
+        "menuTitle" => "Certificates",
+        "icon" => "fas fa-certificate",
+        "pages" => [
+            ["title" => "Issued Certificates", "url" => "issued_certificates.php"]
+        ]
     ]
 ];
 
