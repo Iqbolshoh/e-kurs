@@ -15,15 +15,28 @@ $menuItems = [
         "icon" => "fas fa-book",
         "pages" => [
             ["title" => "My Courses", "url" => "my_courses.php"],
-            ["title" => "Add New Course", "url" => "add_course.php"],
             ["title" => "Manage Lessons", "url" => "manage_lessons.php"]
+        ],
+    ],
+    [
+        "menuTitle" => "Tests",
+        "icon" => "fas fa-question-circle",
+        "pages" => [
+            ["title" => "Manage Tests", "url" => "tests.php"],
+        ],
+    ],
+    [
+        "menuTitle" => "Results",
+        "icon" => "fas fa-chart-bar",
+        "pages" => [
+            ["title" => "View Results", "url" => "results.php"]
         ],
     ],
     [
         "menuTitle" => "Students",
         "icon" => "fas fa-users",
         "pages" => [
-            ["title" => "Manage Students", "url" => "manage_students.php"]
+            ["title" => "Manage Students", "url" => "students.php"]
         ],
     ],
     [

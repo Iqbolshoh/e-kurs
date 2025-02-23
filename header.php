@@ -9,6 +9,14 @@ $menuItems = [
             ["title" => "Update Profile", "url" => "index.php"],
             ["title" => "Active Sessions", "url" => "active_sessions.php"]
         ],
+    ],
+    [
+        "menuTitle" => "Courses",
+        "icon" => "fas fa-book",
+        "pages" => [
+            ["title" => "All Courses", "url" => "courses.php"],
+            ["title" => "My Courses", "url" => "my_courses.php"]
+        ],
     ]
 ];
 

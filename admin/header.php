@@ -22,16 +22,15 @@ $menuItems = [
         "menuTitle" => "Courses",
         "icon" => "fas fa-book",
         "pages" => [
-            ["title" => "Manage Courses", "url" => "courses.php"]
+            ["title" => "All Courses", "url" => "courses.php"]
         ]
     ],
     [
         "menuTitle" => "Payments",
         "icon" => "fas fa-credit-card",
         "pages" => [
-            ["title" => "Transactions", "url" => "transactions.php"],
-            ["title" => "Pending Payments", "url" => "pending_payments.php"]
-        ]
+            ["title" => "Payment History", "url" => "payment_history.php"]
+        ],
     ]
 ];
 
