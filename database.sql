@@ -134,43 +134,7 @@ CREATE TABLE IF NOT EXISTS certificates (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
--- admin and user (password: 'Iqbolsoh$7')
-INSERT INTO
-    users (
-        first_name,
-        last_name,
-        email,
-        username,
-        password,
-        role
-    )
-VALUES
-    (
-        'Iqbolshoh',
-        'Ilhomjonov',
-        'iilhomjonov777@gmail.com',
-        'iqbolshoh',
-        '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
-        'admin'
-    ),
-    (
-        'English',
-        'Center',
-        'center@iqbolshoh.uz',
-        'center',
-        '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
-        'center'
-    ),
-    (
-        'student',
-        'studentjonov',
-        'student@iqbolshoh.uz',
-        'student',
-        '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
-        'student'
-    );
-
-    -- 1. Users table
+    -- 1. Users table -> 'Iqbolsoh$7'
 INSERT INTO users (first_name, last_name, email, username, password, role)
 VALUES 
     ('Iqbolshoh', 'Ilhomjonov', 'iilhomjonov777@gmail.com', 'iqbolshoh', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'admin'),
@@ -242,5 +206,5 @@ VALUES
 -- 11. Certificates
 INSERT INTO certificates (user_id, course_id, certificate_url)
 VALUES 
-    (3, 1, 'certificates/student_english.pdf'),
-    (3, 2, 'certificates/student_advanced.pdf');
+    (3, 1, MD5("user_id=3&course_id=1&2024-01-17 12:00:01")),
+    (3, 2, MD5("user_id=3&course_id=2&2024-02-19 22:22:22"));
