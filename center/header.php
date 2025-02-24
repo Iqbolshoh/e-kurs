@@ -3,11 +3,10 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
 
 $menuItems = [
     [
-        "menuTitle" => "Settings",
-        "icon" => "fas fa-cog",
+        "menuTitle" => "Dashboard",
+        "icon" => "fas fa-tachometer-alt",
         "pages" => [
-            ["title" => "Update Profile", "url" => "index.php"],
-            ["title" => "Active Sessions", "url" => "active_sessions.php"]
+            ["title" => "Home", "url" => "dashboard.php"]
         ],
     ],
     [
@@ -16,7 +15,14 @@ $menuItems = [
         "pages" => [
             ["title" => "Create Course", "url" => "create_course.php"],
             ["title" => "My Courses", "url" => "my_courses.php"],
-            ["title" => "Manage Lessons", "url" => "manage_lessons.php"]
+        ],
+    ],
+    [
+        "menuTitle" => "Lessons",
+        "icon" => "fas fa-chalkboard-teacher",
+        "pages" => [
+            ["title" => "Create Lesson", "url" => "create_lesson.php"],
+            ["title" => "Manage Lessons", "url" => "lessons.php"],
         ],
     ],
     [
@@ -32,16 +38,15 @@ $menuItems = [
         "menuTitle" => "Students",
         "icon" => "fas fa-users",
         "pages" => [
-            ["title" => "Students", "url" => "students.php"],
+            ["title" => "Enrolled Students", "url" => "students.php"]
         ],
     ],
     [
         "menuTitle" => "Payments",
         "icon" => "fas fa-credit-card",
         "pages" => [
-            ["title" => "Payment History", "url" => "payment_history.php"],
-            ["title" => "Pending Payments", "url" => "pending_payments.php"]
-        ]
+            ["title" => "Payment History", "url" => "payment_history.php"]
+        ],
     ],
     [
         "menuTitle" => "Certificates",
@@ -49,6 +54,14 @@ $menuItems = [
         "pages" => [
             ["title" => "Issued Certificates", "url" => "certificates.php"]
         ]
+    ],
+    [
+        "menuTitle" => "Settings",
+        "icon" => "fas fa-cog",
+        "pages" => [
+            ["title" => "Update Profile", "url" => "index.php"],
+            ["title" => "Active Sessions", "url" => "active_sessions.php"]
+        ],
     ]
 ];
 
