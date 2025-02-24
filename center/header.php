@@ -6,7 +6,7 @@ $menuItems = [
         "menuTitle" => "Dashboard",
         "icon" => "fas fa-tachometer-alt",
         "pages" => [
-            ["title" => "Home", "url" => "dashboard.php"]
+            ["title" => "Home", "url" => "index.php"]
         ],
     ],
     [
@@ -59,7 +59,7 @@ $menuItems = [
         "menuTitle" => "Settings",
         "icon" => "fas fa-cog",
         "pages" => [
-            ["title" => "Update Profile", "url" => "index.php"],
+            ["title" => "Update Profile", "url" => "profile.php"],
             ["title" => "Active Sessions", "url" => "active_sessions.php"]
         ],
     ]
