@@ -3,7 +3,6 @@ DROP DATABASE IF EXISTS e_kurs;
 
 -- CREATE DATABASE
 CREATE DATABASE e_kurs;
-
 USE e_kurs;
 
 -- 1. USERS TABLE
@@ -152,20 +151,91 @@ CREATE TABLE certificates (
     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
 );
 
--- Sample Data Insertion
+-- =============================
+-- 📥 DATA INSERTION (Complate)
+-- =============================
 
--- Users
-insert into users (first_name, last_name, email, username, password, role) values
+-- USERS
+INSERT INTO users (first_name, last_name, email, username, password, role) VALUES
 ('Iqbolshoh', 'Ilhomjonov', 'iilhomjonov777@gmail.com', 'iqbolshoh', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'admin'),
 ('English', 'Center', 'center@iqbolshoh.uz', 'center', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'center'),
 ('Student', 'Studentjonov', 'student@iqbolshoh.uz', 'student', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'student');
 
--- Payments
-insert into payments (user_id, course_id, amount, api_trans_id, system_trans_id, method, status) values
+-- ACTIVE SESSIONS
+INSERT INTO active_sessions (user_id, device_name, ip_address, session_token) VALUES
+(1, 'iPhone 15 Pro Max', '192.168.1.10', 'token123'),
+(3, 'Windows Laptop', '192.168.1.20', 'token456');
+
+-- CATEGORIES
+INSERT INTO categories (center_id, name) VALUES
+(2, 'Programming'),
+(2, 'Languages'),
+(2, 'Mathematics');
+
+-- COURSES
+INSERT INTO courses (center_id, category_id, title, description, price) VALUES
+(2, 1, 'Full-Stack Web Development', 'Learn HTML, CSS, JS, PHP, Laravel, and more.', 300.00),
+(2, 2, 'English for Beginners', 'Basic English grammar, vocabulary, and speaking.', 200.00),
+(2, 3, 'Algebra Basics', 'Master fundamental algebra concepts.', 150.00);
+
+-- TOPICS
+INSERT INTO topics (course_id, title) VALUES
+(1, 'HTML & CSS Basics'),
+(1, 'JavaScript Fundamentals'),
+(2, 'English Alphabet & Pronunciation'),
+(3, 'Equations and Inequalities');
+
+-- LESSON ITEMS
+INSERT INTO lesson_items (topic_id, type, title, description, link, position) VALUES
+(1, 'video', 'Introduction to HTML', 'Learn HTML structure and tags.', 'https://example.com/html', 1),
+(1, 'post', 'CSS Basics', 'Introduction to styling with CSS.', NULL, 2),
+(2, 'video', 'JavaScript Variables', 'Understanding variables in JS.', 'https://example.com/js', 1),
+(3, 'post', 'Alphabet Chart', 'Learn English alphabets.', NULL, 1),
+(4, 'video', 'Solving Equations', 'Step-by-step guide to solve equations.', 'https://example.com/algebra', 1);
+
+-- TESTS
+INSERT INTO tests (topic_id, question) VALUES
+(1, 'What does HTML stand for?'),
+(2, 'How do you declare a variable in JavaScript?'),
+(3, 'Which letter comes after "C" in the alphabet?'),
+(4, 'Solve for x: 2x + 3 = 7');
+
+-- TEST OPTIONS
+INSERT INTO test_options (test_id, option_text, is_correct) VALUES
+(1, 'Hyper Text Markup Language', TRUE),
+(1, 'Home Tool Markup Language', FALSE),
+(2, 'var x = 5;', TRUE),
+(2, 'int x = 5;', FALSE),
+(3, 'D', TRUE),
+(3, 'E', FALSE),
+(4, 'x = 2', TRUE),
+(4, 'x = 4', FALSE);
+
+-- STUDENTS
+INSERT INTO students (user_id, course_id) VALUES
+(3, 1),
+(3, 2),
+(3, 3);
+
+-- RESULTS
+INSERT INTO results (user_id, topic_id, total_questions, answered_questions) VALUES
+(3, 1, 5, 5),
+(3, 2, 4, 3),
+(3, 3, 6, 6),
+(3, 4, 3, 2);
+
+-- PAYMENTS
+INSERT INTO payments (user_id, course_id, amount, api_trans_id, system_trans_id, method, status) VALUES
 (3, 1, 150.00, 'api123', 'sys123', 'click', 'paid'),
 (3, 2, 200.00, 'api456', 'sys456', 'payme', 'unpay');
 
--- Certificates
-insert into certificates (user_id, course_id, certificate_url) values
+-- COMMENTS
+INSERT INTO comments (user_id, course_id, comment) VALUES
+(3, 1, 'Amazing course!'),
+(3, 2, 'The lessons are easy to follow.'),
+(3, 3, 'I finally understand algebra.');
+
+-- CERTIFICATES
+INSERT INTO certificates (user_id, course_id, certificate_url) VALUES
 (3, 1, md5('user_id=3&course_id=1&2024-01-17 12:00:01')),
 (3, 2, md5('user_id=3&course_id=2&2024-02-19 22:22:22'));
