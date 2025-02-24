@@ -3,12 +3,11 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
 
 $menuItems = [
     [
-        "menuTitle" => "Settings",
-        "icon" => "fas fa-cog",
+        "menuTitle" => "Dashboard",
+        "icon" => "fas fa-tachometer-alt",
         "pages" => [
-            ["title" => "Update Profile", "url" => "index.php"],
-            ["title" => "Active Sessions", "url" => "active_sessions.php"]
-        ]
+            ["title" => "Home", "url" => "index.php"]
+        ],
     ],
     [
         "menuTitle" => "Users",
@@ -47,6 +46,14 @@ $menuItems = [
         "pages" => [
             ["title" => "Issued Certificates", "url" => "certificates.php"]
         ]
+    ],
+    [
+        "menuTitle" => "Settings",
+        "icon" => "fas fa-cog",
+        "pages" => [
+            ["title" => "Update Profile", "url" => "profile.php"],
+            ["title" => "Active Sessions", "url" => "active_sessions.php"]
+        ],
     ]
 ];
 
