@@ -14,8 +14,8 @@ $menuItems = [
         "menuTitle" => "Courses",
         "icon" => "fas fa-book",
         "pages" => [
-            ["title" => "My Courses", "url" => "my_courses.php"],
             ["title" => "Create Course", "url" => "create_course.php"],
+            ["title" => "My Courses", "url" => "my_courses.php"],
             ["title" => "Manage Lessons", "url" => "manage_lessons.php"]
         ],
     ],
@@ -41,7 +41,14 @@ $menuItems = [
         "pages" => [
             ["title" => "Payment History", "url" => "payment_history.php"],
             ["title" => "Pending Payments", "url" => "pending_payments.php"]
-        ],
+        ]
+    ],
+    [
+        "menuTitle" => "Certificates",
+        "icon" => "fas fa-certificate",
+        "pages" => [
+            ["title" => "Issued Certificates", "url" => "certificates.php"]
+        ]
     ]
 ];
 

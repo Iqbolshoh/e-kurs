@@ -45,7 +45,7 @@ $menuItems = [
         "menuTitle" => "Certificates",
         "icon" => "fas fa-certificate",
         "pages" => [
-            ["title" => "Issued Certificates", "url" => "issued_certificates.php"]
+            ["title" => "Issued Certificates", "url" => "certificates.php"]
         ]
     ]
 ];

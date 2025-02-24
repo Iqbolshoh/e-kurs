@@ -169,3 +169,78 @@ VALUES
         '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231',
         'student'
     );
+
+    -- 1. Users table
+INSERT INTO users (first_name, last_name, email, username, password, role)
+VALUES 
+    ('Iqbolshoh', 'Ilhomjonov', 'iilhomjonov777@gmail.com', 'iqbolshoh', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'admin'),
+    ('English', 'Center', 'center@iqbolshoh.uz', 'center', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'center'),
+    ('Student', 'Studentjonov', 'student@iqbolshoh.uz', 'student', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'student');
+
+-- 2. Active Sessions
+INSERT INTO active_sessions (user_id, device_name, ip_address, session_token)
+VALUES 
+    (1, 'iPhone 15 Pro Max', '192.168.1.10', 'token123'),
+    (2, 'Windows Laptop', '192.168.1.15', 'token456'),
+    (3, 'Android Tablet', '192.168.1.20', 'token789');
+
+-- 3. Courses
+INSERT INTO courses (center_id, title, description, price, category)
+VALUES 
+    (2, 'English for Beginners', 'Learn basic English grammar and vocabulary.', 150.00, 'Languages'),
+    (2, 'Advanced English', 'Deep dive into complex grammar and fluent speaking.', 200.00, 'Languages'),
+    (2, 'IELTS Preparation', 'Prepare for IELTS exam with expert tips.', 250.00, 'Exams');
+
+-- 4. Students
+INSERT INTO students (user_id, course_id)
+VALUES 
+    (3, 1),
+    (3, 2);
+
+-- 5. Lessons
+INSERT INTO lessons (course_id, type, title, description, link, position)
+VALUES 
+    (1, 'video', 'Introduction to English', 'Basic alphabets and greetings.', 'video_link_1', 1),
+    (1, 'content', 'Common Phrases', 'Useful daily conversations.', NULL, 2),
+    (2, 'video', 'Advanced Grammar', 'Complex tenses and clauses.', 'video_link_2', 1);
+
+-- 6. Tests
+INSERT INTO tests (lesson_id, question)
+VALUES 
+    (1, 'What is the English word for "Salom"?'),
+    (2, 'Choose the correct daily greeting.'),
+    (3, 'Identify the past perfect tense.');
+
+-- 7. Test Options
+INSERT INTO test_options (test_id, option_text, is_correct)
+VALUES 
+    (1, 'Hello', TRUE),
+    (1, 'Goodbye', FALSE),
+    (2, 'Good Morning', TRUE),
+    (2, 'Good Night', FALSE),
+    (3, 'I had eaten', TRUE),
+    (3, 'I eat', FALSE);
+
+-- 8. Results
+INSERT INTO results (user_id, lesson_id, participant_name, total_questions, answered_questions, score)
+VALUES 
+    (3, 1, 'Student Studentjonov', 5, 5, 80),
+    (3, 2, 'Student Studentjonov', 5, 4, 70);
+
+-- 9. Payments
+INSERT INTO payments (user_id, course_id, amount, api_trans_id, system_trans_id, method, status)
+VALUES 
+    (3, 1, 150.00, 'api123', 'sys123', 'click', 'paid'),
+    (3, 2, 200.00, 'api456', 'sys456', 'payme', 'unpay');
+
+-- 10. Comments
+INSERT INTO comments (user_id, course_id, comment)
+VALUES 
+    (3, 1, 'Awesome course!'),
+    (3, 2, 'Very informative.');
+
+-- 11. Certificates
+INSERT INTO certificates (user_id, course_id, certificate_url)
+VALUES 
+    (3, 1, 'certificates/student_english.pdf'),
+    (3, 2, 'certificates/student_advanced.pdf');
