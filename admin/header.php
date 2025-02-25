@@ -13,7 +13,8 @@ $menuItems = [
         "menuTitle" => "Courses",
         "icon" => "fas fa-book",
         "pages" => [
-            ["title" => "All Courses", "url" => "courses.php"]
+            ["title" => "All Courses", "url" => "courses.php"],
+            ["title" => "My Courses", "url" => "my_courses.php"]
         ],
     ],
     [
