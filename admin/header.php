@@ -10,19 +10,41 @@ $menuItems = [
         ],
     ],
     [
+        "menuTitle" => "Users",
+        "icon" => "fas fa-users",
+        "pages" => [
+            ["title" => "Centers", "url" => "centers.php"],
+            ["title" => "Students", "url" => "students.php"]
+        ]
+    ],
+    [
         "menuTitle" => "Courses",
         "icon" => "fas fa-book",
         "pages" => [
-            ["title" => "All Courses", "url" => "courses.php"],
-            ["title" => "My Courses", "url" => "my_courses.php"]
-        ],
+            ["title" => "All Courses", "url" => "courses.php"]
+        ]
     ],
     [
         "menuTitle" => "Tests",
         "icon" => "fas fa-question-circle",
         "pages" => [
-            ["title" => "Manage Tests", "url" => "manage_tests.php"],
+            ["title" => "All Tests", "url" => "tests.php"],
             ["title" => "Results", "url" => "results.php"]
+        ]
+    ],
+    [
+        "menuTitle" => "Payments",
+        "icon" => "fas fa-credit-card",
+        "pages" => [
+            ["title" => "Payment History", "url" => "payment_history.php"],
+            ["title" => "Pending Payments", "url" => "pending_payments.php"]
+        ]
+    ],
+    [
+        "menuTitle" => "Certificates",
+        "icon" => "fas fa-certificate",
+        "pages" => [
+            ["title" => "Issued Certificates", "url" => "certificates.php"]
         ]
     ],
     [
