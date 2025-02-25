@@ -2,15 +2,16 @@
 define("DB_SERVER", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
-define("DB_NAME", "auth_master");
+define("DB_NAME", "e_kurs");
 
 define("SITE_PATH", $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST']);
 date_default_timezone_set('Etc/GMT-5');
 
-const ROLES = [
+define('ROLES', [
     'admin' => '/admin/',
-    'user' => '/'
-];
+    'center' => '/center/',
+    'student' => '/'
+]);
 
 class Database
 {

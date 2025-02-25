@@ -3,7 +3,7 @@ session_start();
 
 include './config.php';
 $query = new Database();
-$query->check_session('user');
+$query->check_session('student');
 
 $user = $query->select("users", '*', "id = ?", [$_SESSION['user']['id']], 'i')[0];
 
