@@ -3,7 +3,7 @@ session_start();
 
 include '../config.php';
 $query = new Database();
-$query->checkUserSession('center');
+$query->check_session('center');
 ?>
 
 <?php include './header.php'; ?>

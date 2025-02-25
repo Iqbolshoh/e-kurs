@@ -18,6 +18,14 @@ $menuItems = [
         ],
     ],
     [
+        "menuTitle" => "Lessons",
+        "icon" => "fas fa-chalkboard-teacher",
+        "pages" => [
+            ["title" => "Create Lesson", "url" => "create_lesson.php"],
+            ["title" => "Manage Lessons", "url" => "lessons.php"],
+        ],
+    ],
+    [
         "menuTitle" => "Tests",
         "icon" => "fas fa-question-circle",
         "pages" => [

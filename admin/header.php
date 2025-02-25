@@ -25,14 +25,6 @@ $menuItems = [
         ]
     ],
     [
-        "menuTitle" => "Tests",
-        "icon" => "fas fa-question-circle",
-        "pages" => [
-            ["title" => "All Tests", "url" => "tests.php"],
-            ["title" => "Results", "url" => "results.php"]
-        ]
-    ],
-    [
         "menuTitle" => "Payments",
         "icon" => "fas fa-credit-card",
         "pages" => [
