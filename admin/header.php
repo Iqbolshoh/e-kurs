@@ -10,6 +10,21 @@ $menuItems = [
         ],
     ],
     [
+        "menuTitle" => "Courses",
+        "icon" => "fas fa-book",
+        "pages" => [
+            ["title" => "All Courses", "url" => "courses.php"]
+        ],
+    ],
+    [
+        "menuTitle" => "Tests",
+        "icon" => "fas fa-question-circle",
+        "pages" => [
+            ["title" => "Manage Tests", "url" => "manage_tests.php"],
+            ["title" => "Results", "url" => "results.php"]
+        ]
+    ],
+    [
         "menuTitle" => "Settings",
         "icon" => "fas fa-cog",
         "pages" => [

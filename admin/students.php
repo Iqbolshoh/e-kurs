@@ -3,7 +3,7 @@ session_start();
 
 include '../config.php';
 $query = new Database();
-$query->checkUserSession('admin');
+$query->check_session('admin');
 
 $students = $query->select("users", '*', "role = ?", ['student'], 's');
 $_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
