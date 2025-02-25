@@ -4,6 +4,8 @@ session_start();
 include './config.php';
 $query = new Database();
 $query->check_session('student');
+
+print_r($_SESSION);
 ?>
 
 <?php include './header.php'; ?>
