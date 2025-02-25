@@ -2,15 +2,14 @@
 define("DB_SERVER", "localhost");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
-define("DB_NAME", "e_kurs");
+define("DB_NAME", "auth_master");
 
 define("SITE_PATH", $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST']);
 date_default_timezone_set('Etc/GMT-5');
 
 const ROLES = [
     'admin' => '/admin/',
-    'center' => '/center/',
-    'student' => '/'
+    'user' => '/'
 ];
 
 class Database
@@ -117,9 +116,9 @@ class Database
         return hash_hmac('sha256', $password, 'iqbolshoh');
     }
 
-    public function checkUserSession($role)
+    public function check_session($role)
     {
-        if (($_SESSION['loggedin'] ?? false) !== true || ($_SESSION['role'] ?? '') !== $role) {
+        if (($_SESSION['loggedin'] ?? false) !== true || ($_SESSION['user']['role'] ?? '') !== $role) {
             header("Location: " . SITE_PATH . "/login/");
             exit;
         }
@@ -128,5 +127,10 @@ class Database
             header("Location: " . SITE_PATH . "/logout/");
             exit;
         }
+    }
+
+    function generate_csrf_token()
+    {
+        return $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
 }

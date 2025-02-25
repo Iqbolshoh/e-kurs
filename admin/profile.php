@@ -3,11 +3,9 @@ session_start();
 
 include '../config.php';
 $query = new Database();
-$query->checkUserSession('admin');
+$query->check_session('admin');
 
-$user = $query->select("users", '*', "id = ?", [$_SESSION['user_id']], 'i')[0];
-
-$_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
+$user = $query->select("users", '*', "id = ?", [$_SESSION['user']['id']], 'i')[0];
 
 if (
     $_SERVER["REQUEST_METHOD"] === "POST" &&
@@ -27,37 +25,39 @@ if (
 
     if (!empty($_POST['password'])) {
         $data['password'] = $query->hashPassword($_POST['password']);
-        $query->delete('active_sessions', 'user_id = ? AND session_token <> ?', [$_SESSION['user_id'], session_id()], 'is');
+        $query->delete('active_sessions', 'user_id = ? AND session_token <> ?', [$_SESSION['user']['id'], session_id()], 'is');
     }
 
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
         $encrypted_name = md5(bin2hex(random_bytes(32)) . '_' . bin2hex(random_bytes(16)) . '_' . uniqid('', true)) . '.' . pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
-        $targetFile = SITE_PATH . "/src/images/profile_picture/";
+        $targetFile = "../src/images/profile_picture/";
 
-        $filePath = $targetFile . '/' . $user['profile_picture'];
+        $filePath = $targetFile . $user['profile_picture'];
         if (file_exists($filePath) && $user['profile_picture'] != 'default.png') {
             unlink($filePath);
         }
 
         if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetFile . $encrypted_name)) {
             $data['profile_picture'] = $encrypted_name;
+            $_SESSION['user']['profile_picture'] = $encrypted_name;
         }
     }
 
-    $update = $query->update("users", $data, "id = ?", [$_SESSION['user_id']], "i");
+    $update = $query->update("users", $data, "id = ?", [$_SESSION['user']['id']], "i");
 
     if ($update) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        $_SESSION['user']['first_name'] = $first_name;
+        $_SESSION['user']['last_name'] = $last_name;
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'Your profile has been updated successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('index.php'); }); };
+            window.onload = function () { Swal.fire({ icon: 'success', title: 'Success!', text: 'Your profile has been updated successfully!', timer: 1500, showConfirmButton: false }).then(() => { window.location.replace('profile.php'); }); };
         </script>
         <?php
     }
 } elseif (isset($_POST['submit'])) {
     ?>
     <script>
-        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }); };
+        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }).then(() => { window.location.replace('profile.php'); });; };
     </script>
     <?php
 }
@@ -124,7 +124,7 @@ if (
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                        <input type="hidden" name="csrf_token" value="<?= $query->generate_csrf_token() ?>">
                     </div>
                     <div class="d-grid">
                         <button type="submit" name="submit" id="submit" class="btn btn-primary w-100">Update

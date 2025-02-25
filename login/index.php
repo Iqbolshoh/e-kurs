@@ -4,8 +4,8 @@ session_start();
 include '../config.php';
 $query = new Database();
 
-if (!empty($_SESSION['loggedin']) && isset(ROLES[$_SESSION['role']])) {
-    header("Location: " . SITE_PATH . ROLES[$_SESSION['role']]);
+if (!empty($_SESSION['loggedin']) && isset(ROLES[$_SESSION['user']['role']])) {
+    header("Location: " . SITE_PATH . ROLES[$_SESSION['user']['role']]);
     exit;
 }
 
@@ -17,17 +17,15 @@ if (!empty($_COOKIE['username']) && !empty($_COOKIE['session_token']) && session
 
 if (!empty($_COOKIE['username'])) {
     $username = $_COOKIE['username'];
-    $user = $query->select('users', 'id, role', "username = ?", [$username], 's')[0] ?? null;
+    $user = $query->select('users', '*', "username = ?", [$username], 's')[0] ?? null;
 
     if (!empty($user)) {
         $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['user'] = $user;
 
-        $active_sessions = $query->select("active_sessions", "*", "session_token = ?", [session_id()], "s");
+        $active_session = $query->select("active_sessions", "*", "session_token = ?", [session_id()], "s");
 
-        if (!empty($active_sessions)) {
+        if (!empty($active_session)) {
             $query->update(
                 "active_sessions",
                 ['last_activity' => date('Y-m-d H:i:s')],
@@ -37,14 +35,12 @@ if (!empty($_COOKIE['username'])) {
             );
         }
 
-        if (isset(ROLES[$user['role']])) {
-            header("Location: " . SITE_PATH . ROLES[$_SESSION['role']]);
+        if (isset(ROLES[$_SESSION['user']['role']])) {
+            header("Location: " . SITE_PATH . ROLES[$_SESSION['user']['role']]);
             exit;
         }
     }
 }
-
-$_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
 
 function get_user_info()
 {
@@ -81,13 +77,12 @@ if (
 
     $username = strtolower(trim($_POST['username']));
     $password = $query->hashPassword($_POST['password']);
+
     $user = $query->select('users', '*', "username = ? AND password = ?", [$username, $password], 'ss')[0] ?? null;
 
     if (!empty($user)) {
         $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['user'] = $user;
 
         $cookies = [
             'username' => $username,
@@ -105,16 +100,14 @@ if (
         }
 
         $query->insert('active_sessions', [
-            'user_id' => $user['id'],
+            'user_id' => $_SESSION['user']['id'],
             'device_name' => get_user_info(),
             'ip_address' => $_SERVER['REMOTE_ADDR'],
             'last_activity' => date('Y-m-d H:i:s'),
             'session_token' => session_id()
         ]);
 
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-        $redirectPath = SITE_PATH . ROLES[$_SESSION['role']];
+        $redirectPath = SITE_PATH . ROLES[$_SESSION['user']['role']];
         ?>
         <script>
             window.onload = function () { Swal.fire({ icon: 'success', title: 'Login successful', timer: 1500, showConfirmButton: false }).then(() => { window.location.href = '<?= $redirectPath; ?>'; }); };
@@ -123,14 +116,14 @@ if (
     } else {
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'error', title: 'Oops...', text: 'Login or password is incorrect', showConfirmButton: true }); };
+            window.onload = function () { Swal.fire({ icon: 'error', title: 'Oops...', text: 'Login or password is incorrect', showConfirmButton: true }).then(() => { window.location.replace('index.php'); });; };
         </script>
         <?php
     }
 } elseif (isset($_POST['submit'])) {
     ?>
     <script>
-        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }); };
+        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }).then(() => { window.location.replace('index.php'); });; };
     </script>
     <?php
 }
@@ -168,7 +161,7 @@ if (
                 <small id="password-message" style="color: red;"></small>
             </div>
             <div class="form-group">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                <input type="hidden" name="csrf_token" value="<?= $query->generate_csrf_token() ?>">
             </div>
             <div class="form-group">
                 <button type="submit" name="submit" id="submit">Login</button>

@@ -10,22 +10,6 @@ $menuItems = [
         ],
     ],
     [
-        "menuTitle" => "Courses",
-        "icon" => "fas fa-book",
-        "pages" => [
-            ["title" => "All Courses", "url" => "courses.php"],
-            ["title" => "My Courses", "url" => "my_courses.php"]
-        ],
-    ],
-    [
-        "menuTitle" => "Tests",
-        "icon" => "fas fa-question-circle",
-        "pages" => [
-            ["title" => "Manage Tests", "url" => "manage_tests.php"],
-            ["title" => "Results", "url" => "results.php"]
-        ]
-    ],
-    [
         "menuTitle" => "Settings",
         "icon" => "fas fa-cog",
         "pages" => [
@@ -157,21 +141,21 @@ $active_page = $active_pageInfo['active_page'] ?? null;
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="<?= SITE_PATH ?>" class="brand-link">
-                <img src="<?= SITE_PATH ?>/src/images/logo.png" alt="Admin-panel Logo" class="brand-image img-circle">
-                <span class="brand-text font-weight-light">e-kurs.uz | <small>Student</small></span>
+                <img src="<?= SITE_PATH ?>/src/images/logo.svg" alt="Logo" class="brand-image img-circle bg-white">
+                <span class="brand-text font-weight-light">
+                    <?= ucfirst(string: $_SESSION['user']['role']) ?> Panel
+                </span>
             </a>
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <?php
-                        $filePath = SITE_PATH . "/src/images/profile_picture/" . $query->select("users", '*', "id = ?", [$_SESSION['user_id']], 'i')[0]['profile_picture'];
-                        if (!file_exists($filePath)) {
-                            $filePath = SITE_PATH . "/src/images/profile_picture/default.png";
-                        }
-                        ?>
-                        <img src="<?= $filePath ?>" class="img-circle elevation-2" alt="User Image">
+                        <?php $image_path = SITE_PATH . "/src/images/profile_picture/" . $_SESSION['user']['profile_picture'] ?>
+                        <img src="<?= $image_path ?>" class="img-circle elevation-2 bg-white" alt="User Image">
                     </div>
-                    <div class="info"><a href="<?= SITE_PATH ?>" class="d-block">Iqbolshoh Ilhomjonov</a>
+                    <div class="info">
+                        <a href="<?= SITE_PATH ?>" class="d-block">
+                            <?= $_SESSION['user']['first_name'] . " " . $_SESSION['user']['last_name'] ?>
+                        </a>
                     </div>
                 </div>
                 <nav class="mt-2">

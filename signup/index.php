@@ -4,8 +4,8 @@ session_start();
 include '../config.php';
 $query = new Database();
 
-if (!empty($_SESSION['loggedin']) && isset(ROLES[$_SESSION['role']])) {
-    header("Location: " . SITE_PATH . ROLES[$_SESSION['role']]);
+if (!empty($_SESSION['loggedin']) && isset(ROLES[$_SESSION['user']['role']])) {
+    header("Location: " . SITE_PATH . ROLES[$_SESSION['user']['role']]);
     exit;
 }
 
@@ -17,17 +17,15 @@ if (!empty($_COOKIE['username']) && !empty($_COOKIE['session_token']) && session
 
 if (!empty($_COOKIE['username'])) {
     $username = $_COOKIE['username'];
-    $user = $query->select('users', 'id, role', "username = ?", [$username], 's')[0] ?? null;
+    $user = $query->select('users', '*', "username = ?", [$username], 's')[0] ?? null;
 
     if (!empty($user)) {
         $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['user'] = $user;
 
-        $active_sessions = $query->select("active_sessions", "*", "session_token = ?", [session_id()], "s");
+        $active_session = $query->select("active_sessions", "*", "session_token = ?", [session_id()], "s");
 
-        if (!empty($active_sessions)) {
+        if (!empty($active_session)) {
             $query->update(
                 "active_sessions",
                 ['last_activity' => date('Y-m-d H:i:s')],
@@ -37,14 +35,12 @@ if (!empty($_COOKIE['username'])) {
             );
         }
 
-        if (isset(ROLES[$user['role']])) {
-            header("Location: " . SITE_PATH . ROLES[$_SESSION['role']]);
+        if (isset(ROLES[$_SESSION['user']['role']])) {
+            header("Location: " . SITE_PATH . ROLES[$_SESSION['user']['role']]);
             exit;
         }
     }
 }
-
-$_SESSION['csrf_token'] ??= bin2hex(random_bytes(32));
 
 function get_user_info()
 {
@@ -84,7 +80,11 @@ if (
     $email = $query->validate(strtolower($_POST['email']));
     $username = $query->validate(strtolower($_POST['username']));
     $password = $query->hashPassword($_POST['password']);
-    $role = 'user'; // default role is 'user'
+
+    // DEFAULT ROLE
+    // -----------------------------------------------
+    $role = 'user';
+    // -----------------------------------------------
 
     $data = [
         'first_name' => $first_name,
@@ -97,15 +97,13 @@ if (
         'updated_at' => date('Y-m-d H:i:s')
     ];
 
-    $user = $query->insert('users', $data);
+    $INSERT = $query->insert('users', $data);
 
-    if (!empty($user)) {
-        $user_id = $query->select('users', 'id', 'username = ?', [$username], 's')[0]['id'];
+    if (!empty($INSERT)) {
+        $user = $query->select('users', '*', 'username = ?', [$username], 's')[0];
 
         $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $user_id;
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $role;
+        $_SESSION['user'] = $user;
 
         $cookies = [
             'username' => $username,
@@ -123,32 +121,30 @@ if (
         }
 
         $query->insert('active_sessions', [
-            'user_id' => $user_id,
+            'user_id' => $_SESSION['user']['id'],
             'device_name' => get_user_info(),
             'ip_address' => $_SERVER['REMOTE_ADDR'],
             'last_activity' => date('Y-m-d H:i:s'),
             'session_token' => session_id()
         ]);
 
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-
-        $redirectPath = SITE_PATH . ROLES[$_SESSION['role']];
+        $redirectPath = SITE_PATH . ROLES[$_SESSION['user']['role']];
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'success', title: 'Registration successfu', timer: 1500, showConfirmButton: false }).then(() => { window.location.href = '<?= $redirectPath; ?>'; }); };
+            window.onload = function () { Swal.fire({ icon: 'success', title: 'Registration successful', timer: 1500, showConfirmButton: false }).then(() => { window.location.href = '<?= $redirectPath; ?>'; }); };
         </script>
         <?php
     } else {
         ?>
         <script>
-            window.onload = function () { Swal.fire({ icon: 'error', title: 'Oops...', text: 'Registration failed. Please try again.', showConfirmButton: true }); };
+            window.onload = function () { Swal.fire({ icon: 'error', title: 'Oops...', text: 'Registration failed. Please try again.', showConfirmButton: true }).then(() => { window.location.replace('index.php'); });; };
         </script>
         <?php
     }
 } elseif (isset($_POST['submit'])) {
     ?>
     <script>
-        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }); };
+        window.onload = function () { Swal.fire({ icon: 'error', title: 'Invalid CSRF Token', text: 'Please refresh the page and try again.', showConfirmButton: true }).then(() => { window.location.replace('index.php'); });; };
     </script>
     <?php
 }
@@ -199,7 +195,7 @@ if (
                 <small id="password-message"></small>
             </div>
             <div class="form-group">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                <input type="hidden" name="csrf_token" value="<?= $query->generate_csrf_token() ?>">
             </div>
             <div class="form-group">
                 <button type="submit" name="submit" id="submit">Sign Up</button>
@@ -263,9 +259,9 @@ if (
             }
 
             function updateSubmitButtonState() {
-                const isEmailValid = validateEmailFormat(emailField.value) && emailAvailable;
-                const isUsernameValid = validateUsernameFormat(usernameField.value) && usernameAvailable;
-                const isPasswordValid = passwordField.value.length == 0 ? true : validatePassword();
+                const isEmailValid = emailField.value.length === 0 || (validateEmailFormat(emailField.value) && emailAvailable);
+                const isUsernameValid = usernameField.value.length === 0 || (validateUsernameFormat(usernameField.value) && usernameAvailable);
+                const isPasswordValid = passwordField.value.length === 0 || validatePassword();
 
                 const isFormValid = isEmailValid && isUsernameValid && isPasswordValid;
 

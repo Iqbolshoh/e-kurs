@@ -3,7 +3,7 @@ session_start();
 
 include './config.php';
 $query = new Database();
-$query->checkUserSession('student');
+$query->check_session('user');
 ?>
 
 <?php include './header.php'; ?>
