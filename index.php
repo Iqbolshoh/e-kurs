@@ -5,7 +5,9 @@ include './config.php';
 $query = new Database();
 $query->check_session('student');
 
+echo "<pre>";
 print_r($_SESSION);
+echo "<pre>";
 ?>
 
 <?php include './header.php'; ?>
