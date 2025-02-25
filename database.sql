@@ -161,11 +161,6 @@ INSERT INTO users (first_name, last_name, email, username, password, role) VALUE
 ('English', 'Center', 'center@iqbolshoh.uz', 'center', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'center'),
 ('Student', 'Studentjonov', 'student@iqbolshoh.uz', 'student', '1f254bb82e64bde20137a2922989f6f57529c98e34d146b523a47898702b7231', 'student');
 
--- ACTIVE SESSIONS
-INSERT INTO active_sessions (user_id, device_name, ip_address, session_token) VALUES
-(1, 'iPhone 15 Pro Max', '192.168.1.10', 'token123'),
-(3, 'Windows Laptop', '192.168.1.20', 'token456');
-
 -- CATEGORIES
 INSERT INTO categories (center_id, name) VALUES
 (2, 'Programming'),
